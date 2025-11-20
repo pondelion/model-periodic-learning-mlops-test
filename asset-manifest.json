@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/model-periodic-learning-mlops-test-dashboard/static/css/main.8f8017a8.css",
+    "main.js": "/model-periodic-learning-mlops-test-dashboard/static/js/main.d7200009.js",
+    "index.html": "/model-periodic-learning-mlops-test-dashboard/index.html",
+    "main.8f8017a8.css.map": "/model-periodic-learning-mlops-test-dashboard/static/css/main.8f8017a8.css.map",
+    "main.d7200009.js.map": "/model-periodic-learning-mlops-test-dashboard/static/js/main.d7200009.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.8f8017a8.css",
+    "static/js/main.d7200009.js"
+  ]
+}
