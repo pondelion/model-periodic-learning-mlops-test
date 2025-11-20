@@ -2,9 +2,11 @@
 
 ## Realtime Accuracy Summary
 
+[Dashbord](https://pondelion.github.io/model-periodic-learning-mlops-test/)
+
 ![accuracy summary](https://storage.googleapis.com/model-periodic-learn-test/db/model_eval_results.png "Accuracy Summary")
 
-[All Run Records CSV](https://storage.googleapis.com/model-periodic-learn-test/db/model_eval_results.csv)
+[Download All Run Records CSV](https://storage.googleapis.com/model-periodic-learn-test/db/model_eval_results.csv)
 
 ## Deploy by Terraform
 
@@ -34,7 +36,14 @@ $ terraform -chdir=deploy/terraform/app init
 # (アプリ修正後毎回) Cloud Runデプロイ
 $ terraform -chdir=deploy/terraform/app plan
 $ terraform -chdir=deploy/terraform/app apply
+```
 
+- GCS の CORS
+```sh
+$ echo '[{"origin":["*"],"method":["GET","HEAD"],"responseHeader":["Content-Type", "Access-Control-Allow-Origin"],"maxAgeSeconds":3600}]' > cors.json
+$ gcloud storage buckets update gs://$BUCKET_NAME --cors-file=cors.json
+$ rm cors.json
+$ gsutil cors get gs://$BUCKET_NAME
 ```
 
 ## Local Run
