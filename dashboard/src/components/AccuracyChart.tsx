@@ -38,9 +38,9 @@ export const AccuracyChart: React.FC<Props> = ({ records }) => {
             key={llm}
             type="monotone"
             dataKey={(row: RunRecord) =>
-              row.llm_name === llm ? row.accuracy_val : undefined
+              row.llm_name === llm ? row.accuracy_test : undefined
             }
-            name={`${llm} (val)`}
+            name={`${llm} (test)`}
             stroke={colors[idx % colors.length]}
             connectNulls
           />

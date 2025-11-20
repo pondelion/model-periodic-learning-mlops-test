@@ -9,7 +9,7 @@ interface Props {
 type SortKey = keyof RunRecord;
 
 export const RecordTable: React.FC<Props> = ({ records, onSelect }) => {
-  const [sortKey, setSortKey] = useState<SortKey>("id");
+  const [sortKey, setSortKey] = useState<SortKey>("created_at");
   const [sortAsc, setSortAsc] = useState(true);
 
   const handleSort = (key: SortKey) => {

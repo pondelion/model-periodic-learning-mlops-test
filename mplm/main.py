@@ -51,6 +51,7 @@ def print_workflow_state(state: WorkflowState):
 
 
 def main():
+    settings.print_settings()
     local_db_path = settings.db_file
     gcs_db_path = settings.db_file_gcs
     logger.info("Download DB file from GCS...")

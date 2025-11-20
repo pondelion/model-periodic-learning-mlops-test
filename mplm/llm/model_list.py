@@ -6,7 +6,8 @@ OPEN_ROUTER_FREE_MODEL_LIST = [
     "google/gemma-3-27b-it:free",  # NG (summary code execution fail)
     "google/gemini-2.0-flash-exp:free",  # NG (rate limit error)
     "openai/gpt-oss-20b:free",  # OK
-    "mistralai/mistral-small-3.2-24b-instruct:free",
+    "mistralai/mistral-small-3.2-24b-instruct:free",  # OK (sometimes rate limit error)
+    "meta-llama/llama-3.3-70b-instruct:free",  # OK
 ]
 LOCAL_LLM_OLLAMA_LIST = [
     'gpt-oss:20b',

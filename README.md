@@ -49,6 +49,9 @@ $ gsutil cors get gs://$BUCKET_NAME
 ## Local Run
 
 ```sh
+# 環境変数セット
+$ set -a && source .env && set +a
+
 # アプリ実行用 SA の認証情報をセット
 $ export GOOGLE_APPLICATION_CREDENTIALS="$(pwd)/app_sa_credentials.json"
 
