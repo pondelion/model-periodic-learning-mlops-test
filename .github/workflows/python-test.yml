@@ -36,7 +36,7 @@ jobs:
 
       # 5. プロジェクトパッケージを editable インストール
       - name: Install project package
-        run: uv pip install -e ./mplm
+        run: uv pip install -e .
 
       # 6. pytest テストを uv run で実行
       - name: Run unit tests
