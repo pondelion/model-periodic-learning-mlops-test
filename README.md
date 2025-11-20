@@ -18,6 +18,11 @@ $ export $(grep -v -E '^\s*#|^\s*$' .env | \
 
 # Terraform 用 SA の認証情報をセット
 $ export GOOGLE_APPLICATION_CREDENTIALS="$(pwd)/terraform_executor_sa_credentials.json"
+# ※以下２つはdocker pushで必須
+# SA キーで gcloud 認証
+$ gcloud auth activate-service-account --key-file=$GOOGLE_APPLICATION_CREDENTIALS
+# Docker の GCP Registry 認証を設定
+$ gcloud auth configure-docker asia-northeast1-docker.pkg.dev
 
 # （初回のみ）アプリとGithub Action用SAとArtifact Registry だけ作成
 $ terraform -chdir=deploy/terraform/pre init
@@ -31,7 +36,7 @@ $ docker build \
 $ docker push ${TF_VAR_region}-docker.pkg.dev/${TF_VAR_project_id}/${TF_VAR_artifact_repo_name}/${TF_VAR_image_name}:latest
 
 # ↑preデプロイで取得したrun_exec_sa_email / github_trigger_sa_email / artifact_registry_repoを↓に環境変数経由で渡すためのsh実行
-$ bash tf_pre_phase_outputs_to_env.sh
+$ source tf_pre_phase_outputs_to_env.sh
 $ terraform -chdir=deploy/terraform/app init
 # (アプリ修正後毎回) Cloud Runデプロイ
 $ terraform -chdir=deploy/terraform/app plan

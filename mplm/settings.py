@@ -33,12 +33,12 @@ class Settings(BaseSettings):
     max_retry: int = 3
     default_random_seed: int = 42
 
-    project_id: str
+    project_id: str | None = None
     region: str = "asia-northeast1"
-    artifact_repo_name: str
+    artifact_repo_name: str | None = None
     bucket_name: str
-    image_name: str
-    github_repo: str
+    image_name: str | None = None
+    github_repo: str | None = None
 
     model_config = SettingsConfigDict(env_file=".env")
 

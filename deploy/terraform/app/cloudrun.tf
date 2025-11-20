@@ -1,50 +1,53 @@
-resource "google_cloud_run_v2_service" "ml_agent" {
+resource "google_cloud_run_v2_job" "mplm_app_job" {
   name     = var.image_name
   location = var.region
+  deletion_protection = false  # 削除保護を無効にする
 
   template {
-    service_account = var.run_exec_sa_email
+    # template 内に containers 設定
+    template {
+      containers {
+        image = "${var.region}-docker.pkg.dev/${var.project_id}/${var.artifact_repo_name}/${var.image_name}:latest"
 
-    containers {
-      image = "${var.region}-docker.pkg.dev/${var.project_id}/${var.artifact_repo_name}/${var.image_name}:latest"
-      ports {
-        container_port = 8080
-      }
+        resources {
+          limits = {
+            cpu    = "2"
+            memory = "1024Mi"
+          }
+        }
 
-      env {
-        name  = "MODEL_BUCKET"
-        value = var.bucket_name
+        env {
+          name  = "BUCKET_NAME"
+          value = var.bucket_name
+        }
+        env {
+          name  = "OPENROUTER_API_KEY"
+          value = var.openrouter_api_key
+        }
+        env {
+          name  = "LLM_NAME"
+          value = var.llm_name
+        }
+        env {
+          name  = "DB_FILE"
+          value = var.db_file
+        }
+        env {
+          name  = "DEFAULT_RANDOM_SEED"
+          value = tostring(var.default_random_seed)
+        }
+        env {
+          name  = "MAX_RETRY"
+          value = tostring(var.max_retry)
+        }
+        env {
+          name  = "MODEL_SAVE_DIR"
+          value = var.model_save_dir
+        }
       }
-
-      env {
-        name  = "OPENROUTER_API_KEY"
-        value = var.openrouter_api_key
-      }
-
-      env {
-        name  = "LLM_NAME"
-        value = var.llm_name
-      }
-
-      env {
-        name  = "DB_FILE"
-        value = var.db_file
-      }
-
-      env {
-        name  = "DEFAULT_RANDOM_SEED"
-        value = tostring(var.default_random_seed)
-      }
-
-      env {
-        name  = "MAX_RETRY"
-        value = tostring(var.max_retry)
-      }
-
-      env {
-        name  = "MODEL_SAVE_DIR"
-        value = var.model_save_dir
-      }
+      timeout = "1800s"
+      service_account = var.run_exec_sa_email
+      max_retries = 2
     }
   }
 }

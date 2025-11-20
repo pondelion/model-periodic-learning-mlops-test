@@ -1,11 +1,10 @@
 name: Trigger Titanic Agent on Cloud Run
 
-# 全部作り終えたらスケジューリング開始する
-# on:
-#   schedule:
-#     # 毎日午前3時に実行 (UTC)
-#     - cron: "0 3 * * *"
-#   workflow_dispatch:  # 手動実行も可能
+on:
+  schedule:
+    # 毎日午前0時に実行 (UTC)
+    - cron: "0 0 * * *"
+  workflow_dispatch:  # 手動実行も可能
 
 jobs:
   trigger-cloud-run:
@@ -29,6 +28,4 @@ jobs:
 
       - name: Trigger Cloud Run Service
         run: |
-          gcloud run services invoke titanic-agent \
-            --region=us-central1 \
-            --project=${{ secrets.GCP_PROJECT_ID }}
+          gcloud run jobs execute ${{ secrets.GCP_CLOUD_RUN_JOB_NAME }} --region=asia-northeast1 --project=${{ secrets.GCP_PROJECT_ID }}

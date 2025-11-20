@@ -42,12 +42,17 @@ Terraform で以下のリソースを作成します：
 $ export $(grep -v -E '^\s*#|^\s*$' .env | xargs)
 ```
 
+- ルートアカウントログイン
+```sh
+$ gcloud auth login
+```
+
 ## コマンド
 
 ```sh
 $ export GCP_SA_EMAIL=$(gcloud iam service-accounts list \
   --project "$PROJECT_ID" \
-  --filter="displayName:ML Cloud Run execution" \
+  --filter="displayName:terraform-deploy" \
   --format="value(email)")
 $ echo $GCP_SA_EMAIL
 ```
@@ -61,7 +66,8 @@ for role in \
   roles/iam.serviceAccountKeyAdmin \
   roles/iam.securityAdmin \
   roles/logging.admin \
-  roles/iam.workloadIdentityPoolAdmin
+  roles/iam.workloadIdentityPoolAdmin \
+  roles/iam.serviceAccountUser
 do
   gcloud projects add-iam-policy-binding $PROJECT_ID \
     --member="serviceAccount:$GCP_SA_EMAIL" \
@@ -77,7 +83,8 @@ $ gcloud config set project $PROJECT_ID
 
 # Artifact Registry API
 $ gcloud services enable artifactregistry.googleapis.com
-
 # IAM API
 $ gcloud services enable iam.googleapis.com
+# Clound Run API
+$ gcloud services enable run.googleapis.com
 ```
