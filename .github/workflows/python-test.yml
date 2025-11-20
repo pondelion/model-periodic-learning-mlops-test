@@ -38,6 +38,9 @@ jobs:
       - name: Install project package
         run: uv pip install -e .
 
+      - name: Copy dummy .env
+        run: cp .env.template .env
+
       # 6. pytest テストを uv run で実行
       - name: Run unit tests
         run: uv run pytest -v -s tests
