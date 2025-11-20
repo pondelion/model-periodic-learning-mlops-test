@@ -1,0 +1,21 @@
+# python
+.venv
+.env
+.ruff_cache
+*.egg-info
+__pycache__
+.pytest_cache
+
+# Terraform generated files
+.terraform/
+*.tfplan
+*.tfstate
+*.tfstate.backup
+.terraform.lock.hcl
+crash.log
+
+/db
+terraform_executor_sa_credentials.json
+app_sa_credentials.json
+
+ai_coding_prompt.md

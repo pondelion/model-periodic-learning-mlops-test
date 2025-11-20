@@ -1,0 +1,18 @@
+version: "3"
+
+services:
+  app:
+    build:
+      context: .
+      dockerfile: docker/Dockerfile
+    container_name: mplm_app
+    env_file:
+      - ./.env       # プロジェクトルートの .env を読み込む
+    volumes:
+      - ./app_sa_credentials.json:/app/app_sa_credentials.json:ro  # 読み取り専用でマウント
+      # - ./mplm:/app/mplm  # 必要に応じて開発中のコードをマウント
+    working_dir: /app
+    environment:
+      GOOGLE_APPLICATION_CREDENTIALS: /app/app_sa_credentials.json
+      # OLLAMA_HOST: host.docker.internal:11434
+    command: ["uv", "run", "python", "mplm/main.py"]
