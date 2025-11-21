@@ -21,7 +21,7 @@ jobs:
       - name: Authenticate to GCP
         uses: google-github-actions/auth@v1
         with:
-          workload_identity_provider: "projects/${{ secrets.GCP_PROJECT_NUMBER }}/locations/global/workloadIdentityPools/github-pool/providers/github-provider"
+          workload_identity_provider: "projects/${{ secrets.GCP_PROJECT_NUMBER }}/locations/global/workloadIdentityPools/${{ secrets.GCP_WORKLOAD_IDENTITY_POOL_ID }}/providers/${{ secrets.GCP_GITHUB_PROVIDER }}"
           service_account: "github-trigger-invoker@${{ secrets.GCP_PROJECT_ID }}.iam.gserviceaccount.com"
 
       - name: Set up gcloud CLI
