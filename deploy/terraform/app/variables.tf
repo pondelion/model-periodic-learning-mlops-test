@@ -29,6 +29,11 @@ variable "run_exec_sa_email" {
   description = "Cloud Run execution service account email from pre phase"
 }
 
+variable "github_trigger_sa_email" {
+  type        = string
+  description = "GutHub action service account email from pre phase"
+}
+
 # OpenRouter / LLM 設定
 variable "openrouter_api_key" {
   type        = string

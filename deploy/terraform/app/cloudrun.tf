@@ -51,3 +51,17 @@ resource "google_cloud_run_v2_job" "mplm_app_job" {
     }
   }
 }
+
+resource "google_cloud_run_v2_job_iam_member" "invoker_binding" {
+  location = google_cloud_run_v2_job.mplm_app_job.location
+  name     = google_cloud_run_v2_job.mplm_app_job.name
+  role     = "roles/run.invoker"
+  member   = "serviceAccount:${var.github_trigger_sa_email}"
+}
+
+resource "google_cloud_run_v2_job_iam_member" "viewer_binding" {
+  location = google_cloud_run_v2_job.mplm_app_job.location
+  name     = google_cloud_run_v2_job.mplm_app_job.name
+  role     = "roles/run.viewer"
+  member   = "serviceAccount:${var.github_trigger_sa_email}"
+}
