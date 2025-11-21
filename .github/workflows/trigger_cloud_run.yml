@@ -29,3 +29,6 @@ jobs:
       - name: Trigger Cloud Run Service
         run: |
           gcloud run jobs execute ${{ secrets.GCP_CLOUD_RUN_JOB_NAME }} --region=asia-northeast1 --project=${{ secrets.GCP_PROJECT_ID }}
+  permissions:
+    contents: 'read'
+    id-token: 'write'
