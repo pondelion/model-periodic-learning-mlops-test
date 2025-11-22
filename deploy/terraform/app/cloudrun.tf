@@ -44,6 +44,10 @@ resource "google_cloud_run_v2_job" "mplm_app_job" {
           name  = "MODEL_SAVE_DIR"
           value = var.model_save_dir
         }
+        env {
+          name  = "FORCE_DEPLOY"
+          value = var.image_digest
+        }
       }
       timeout = "1800s"
       service_account = var.run_exec_sa_email

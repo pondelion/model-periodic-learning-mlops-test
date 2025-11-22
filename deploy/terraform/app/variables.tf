@@ -66,3 +66,7 @@ variable "model_save_dir" {
   type    = string
   default = "./models_saved"
 }
+
+variable "image_digest" {
+  type = string
+}

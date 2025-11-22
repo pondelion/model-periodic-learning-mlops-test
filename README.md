@@ -24,13 +24,13 @@ $ gcloud auth activate-service-account --key-file=$GOOGLE_APPLICATION_CREDENTIAL
 # Docker の GCP Registry 認証を設定
 $ gcloud auth configure-docker asia-northeast1-docker.pkg.dev
 
-# （初回のみ）アプリとGithub Action用SAとArtifact Registry だけ作成
+# （初回のみ）アプリ+Github Action用SA、Artifact Registry 、Storage作成
 $ terraform -chdir=deploy/terraform/pre init
 $ terraform -chdir=deploy/terraform/pre plan
 $ terraform -chdir=deploy/terraform/pre apply
 
 # Docker イメージを build & push
-$ docker build \
+$ docker build --platform linux/amd64 \
   -t ${TF_VAR_region}-docker.pkg.dev/${TF_VAR_project_id}/${TF_VAR_artifact_repo_name}/${TF_VAR_image_name}:latest \
   -f docker/Dockerfile .
 $ docker push ${TF_VAR_region}-docker.pkg.dev/${TF_VAR_project_id}/${TF_VAR_artifact_repo_name}/${TF_VAR_image_name}:latest

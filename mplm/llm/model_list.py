@@ -1,3 +1,7 @@
+import requests
+
+from ..settings import settings
+
 OPEN_ROUTER_FREE_MODEL_LIST = [
     # "deepseek/deepseek-chat-v3.1:free",
     "deepseek/deepseek-chat-v3-0324:free",  # NG
@@ -12,3 +16,19 @@ OPEN_ROUTER_FREE_MODEL_LIST = [
 LOCAL_LLM_OLLAMA_LIST = [
     'gpt-oss:20b',
 ]
+
+
+def get_openrouter_free_models() -> list[str]:
+    url = "https://openrouter.ai/api/v1/models"
+    headers = {
+        "Authorization": f"Bearer {settings.openrouter_api_key}",
+    }
+
+    response = requests.get(url, headers=headers)
+    response.raise_for_status()
+
+    models = response.json().get("data", [])
+
+    free_models = [m["id"] for m in models if m["id"].endswith(":free")]
+
+    return free_models

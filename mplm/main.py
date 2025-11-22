@@ -2,6 +2,7 @@
 Entry point for automated Titanic model training agent.
 """
 
+import random
 from pprint import pprint
 
 from mplm.agent.automatic_model_build_agent import build_workflow, save_run_to_db
@@ -9,14 +10,14 @@ from mplm.db.base import init_db
 from mplm.db.crud import get_all_records_as_df
 from mplm.db.download_db_file import download_db_from_gcs_if_exists
 from mplm.db.session import get_engine, get_session
+from mplm.llm.client import get_llm
+from mplm.llm.model_list import get_openrouter_free_models
 from mplm.models.state import WorkflowState
 from mplm.services.data_loader import load_titanic_dataset
 from mplm.settings import settings
 from mplm.utils.gcs import upload_file_to_gcs
 from mplm.utils.logger import get_logger
 from mplm.utils.visualization import plot_accuracy_summary
-
-# from mplm.llm.client import get_llm
 
 logger = get_logger(__name__)
 
@@ -66,14 +67,17 @@ def main():
     logger.info("Loading Titanic dataset...")
     df, metadata = load_titanic_dataset()
 
-    # llm = get_llm(temperature=2.0)
+    llm_name = random.choice(get_openrouter_free_models())
+    temperature = random.uniform(0.1, 2.0)
+    logger.info(f"Initializing llm {llm_name} (temperature {temperature})...")
+    llm = get_llm(model_name=llm_name, temperature=temperature)
 
     state: WorkflowState = {
         "df": df,
         "target_column": "survived",
         "metadata": metadata,
         "retries": 0,
-        # "llm": llm,
+        "llm": llm,
     }
 
     logger.info("Running workflow...")
