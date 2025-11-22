@@ -2,8 +2,8 @@ name: Trigger Titanic Agent on Cloud Run
 
 on:
   schedule:
-    # 毎日午前0時に実行 (UTC)
-    - cron: "0 0 * * *"
+    # 毎日 0, 6, 12, 18 時に実行 (UTC)
+    - cron: "0 0,6,12,18 * * *"
   workflow_dispatch:  # 手動実行も可能
 
 jobs:
