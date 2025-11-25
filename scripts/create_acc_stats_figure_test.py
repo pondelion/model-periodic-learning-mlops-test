@@ -52,6 +52,7 @@ sns.histplot(df, x="accuracy_val", hue="llm_name", multiple="stack", kde=True, a
 axes[1, 0].set_title("Validation Accuracy Distribution")
 axes[1, 0].set_xlabel("accuracy_val")
 axes[1, 0].set_ylabel("Count")
+sns.move_legend(axes[1, 0], title="LLM Name", loc="upper left", bbox_to_anchor=(1.05, 1))
 
 sns.histplot(df, x="accuracy_test", hue="llm_name", multiple="stack", kde=True, ax=axes[1, 1], bins=70)
 axes[1, 1].set_title("Test Accuracy Distribution")

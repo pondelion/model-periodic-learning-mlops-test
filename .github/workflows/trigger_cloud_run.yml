@@ -8,6 +8,7 @@ on:
 
 jobs:
   trigger-cloud-run:
+    if: ${{ vars.SKIP_SCHEDULED_RUN != 'true' }}
     runs-on: ubuntu-latest
     # Add "id-token" with the intended permissions.
     permissions:

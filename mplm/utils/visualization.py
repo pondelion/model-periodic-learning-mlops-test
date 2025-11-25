@@ -56,6 +56,7 @@ def plot_accuracy_summary(df_record: pd.DataFrame, output_filepath: str):
     axes[1, 0].set_title("Validation Accuracy Distribution")
     axes[1, 0].set_xlabel("accuracy_val")
     axes[1, 0].set_ylabel("Count")
+    sns.move_legend(axes[1, 0], title="LLM Name", loc="upper left", bbox_to_anchor=(1.05, 1))
 
     # --- Test Accuracy 分布 ---
     sns.histplot(df, x="accuracy_test", hue="llm_name", multiple="stack", kde=True, ax=axes[1, 1], bins=70)
